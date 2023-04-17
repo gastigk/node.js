@@ -56,8 +56,7 @@ class CartsService {
   }
 
   // post de porductos
-  async update(cid, changes) {
-    const id = Number(req.params.id);
+  async update(cid) {
     const producto = products.find(product => product.cid === cid);
 
     if (producto) {
@@ -88,7 +87,6 @@ class CartsService {
   } else {
       res.status(404).send('Producto no encontrado');
   }
-
   }
 }
 

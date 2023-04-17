@@ -4,7 +4,7 @@ const validatorHandler = require('./../middlewares/validator.handler');
 const {
   createCartsSchema,
   getCartsSchema,
-  postProductsSchema
+  postProductsSchema,
 } = require('./../schemas/carts.schema');
 
 const router = express.Router();
@@ -48,10 +48,14 @@ router.post(
 );
 
 // agregar producto al [products]
-// router.post('/:id', (req, res) => {
-
-
-
-// });
+router.post('/:cid', async (req, res, next) => {
+  try {
+    const cid = Number(req.params.cid);
+    const cart = await service.update(cid);
+    res.json(cart);
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;
