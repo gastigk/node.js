@@ -1,5 +1,4 @@
 const express = require('express');
-
 const CartsService = require('./../services/carts.service');
 const validatorHandler = require('./../middlewares/validator.handler');
 const {
@@ -49,18 +48,10 @@ router.post(
 );
 
 // agregar producto al [products]
-router.post(
-  '/:cid/product/:pid',
-  validatorHandler(getCartsSchema, 'params'),
-  async (req, res, next) => {
-    try {
-      const { cid, pid } = req.params;
-      const cart = await service.update(cid, pid, quantify++);
-      res.json(cart);
-    } catch (error) {
-      next(error);
-    }
-  }
-);
+// router.post('/:id', (req, res) => {
+
+
+
+// });
 
 module.exports = router;
