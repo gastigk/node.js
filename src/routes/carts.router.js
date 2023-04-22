@@ -48,14 +48,18 @@ router.post(
 );
 
 // agregar producto al [products]
-router.post('/:cid', async (req, res, next) => {
-  try {
-    const cid = Number(req.params.cid);
-    const cart = await service.update(cid);
-    res.json(cart);
-  } catch (error) {
-    next(error);
+router.post(
+  '/:cid',
+  validatorHandler(postProductsSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      const cid = Number(req.params.cid);
+      const cart = await service.update(cid);
+      res.json(cart);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 module.exports = router;

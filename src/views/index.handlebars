@@ -1,0 +1,22 @@
+<section class="products">
+    <div id="product-container" class="container products">
+        {{#each products}}
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src={{ thumbnails }} alt="Card image cap">
+            <div class="card-body">
+                <h3 class="card-title">{{ title }}</h3>
+                <h5 class="card-title">{{ category }}</h5>
+                <p class="card-text">{{ description }} </p>
+                <h4 class="card-text">{{ price }}.- </h4>
+                <h6 class="card-text">Hay {{ stock }} en stock 😄</h6>
+                <div class="buttons_pay">
+                    <form action="/cart/{{id}}" method="POST">
+                        <input type="hidden" name="id" value="{{id}}">
+                        <button type="submit" class="btn btn-primary">Comprar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</section>

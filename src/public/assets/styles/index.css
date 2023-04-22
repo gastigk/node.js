@@ -1,0 +1,19 @@
+.index_div{
+    padding: 2rem;
+}
+.index_div h1,
+.index_div h2,
+.index_div h3{
+    padding: 1rem;
+}
+.index_div h1{
+    color: var(--brick);
+    font-size: 2rem;
+}
+.index_div__div{
+    display: flex;
+    justify-content: space-evenly;
+}
+.index_div__div a{
+    max-width: 10rem;
+}
