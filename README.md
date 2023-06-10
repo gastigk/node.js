@@ -1,5 +1,9 @@
 <h1 align="center">Curso de Programación Backend en Coderhouse</h1>
 
+<p align="center"> 
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTY0JeyLTcn-kwLcHWl0gf3XzfFnot6eshV2ms8RVkEmzZst74I4X24PO8KCT7inFz46W0&usqp=CAU" alt="backend" />
+</p>
+
 <br><br>
 
 <p align="center"> 
@@ -14,38 +18,42 @@
 
 ---
 
-<p align="center"> 
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTY0JeyLTcn-kwLcHWl0gf3XzfFnot6eshV2ms8RVkEmzZst74I4X24PO8KCT7inFz46W0&usqp=CAU" alt="backend" />
-</p>
-
 <br>
 
 <h2 align="center">Lenguaje y Herramientas</h2>
-<br><br>
+
+<br>
+<br>
 
 <p align="center"> 
-<a href="https://www.w3.org/html/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="90" height="90"/></a> 
-<a href="https://www.w3schools.com/css/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="90" height="90"/></a> 
-<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="Javascript" width="90" height="90"/></a> 
-<a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="90" height="90"/> </a> 
-</p>
-<br>
- <p align="center"> 
-<a href="https://www.mongodb.com/" target="_blank" rel="gastigk"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original-wordmark.svg" alt="mongodb.com"  height="120"/> </a>
-<a href="https://www.express.com/" target="_blank" rel="gastigk"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="express.com"  height="120"/> </a>
- <a href="https://reactjs.org/" target="_blank" rel="gastigk"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" height="120"/> </a>
- <a href="https://nodejs.org/" target="_blank" rel="gastigk"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs"  height="120"/> </a>
-
-<br>
- <a href="https://www.w3.org/html/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/></a> 
-<a href="https://www.w3schools.com/css/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/></a> 
-<a href="https://www.w3.org/sass/" target="_blank"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/sass/sass-original.svg" alt="sass" style="max-width:100%;" width="40" height="40"></a> 
-<a href="https://lesscss.org/" target="_blank"><img src="https://cdn.iconscout.com/icon/free/png-256/less-18-1175145.png" alt="lesscss" style="max-width:100%;" width="40" ></a>
-<a target="_blank" rel="" href="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/bootstrap/bootstrap.png"> <img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/bootstrap/bootstrap.png" style="max-width: 100%;" height="40"></a> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="Javascript" width="40" height="40"/></a> 
-<a href="https://reactnative.dev/" target="_blank" rel="noreferrer"> <img src="https://reactnative.dev/img/header_logo.svg" alt="reactnative" width="40" height="40"/> </a> 
-<a href="https://nodejs.org/" target="_blank" rel="gastigk"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs"  height="40"/> </a>  
-<a href="https://www.mongodb.com/" target="_blank" rel="gastigk"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original-wordmark.svg" alt="mongodb.com"  height="40"/> </a>
-<a href="https://www.express.com/" target="_blank" rel="gastigk"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="express.com"  height="40"/> </a>
-<a href="https://www.python.org" rel="nofollow"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" style="max-width: 100%;" width="40" height="40"></a> 
-<a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a> 
+    <a href="https://www.w3.org/html/" target="_blank"> 
+        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/>
+    </a> 
+    <a href="https://www.w3schools.com/css/" target="_blank"> 
+        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/>
+    </a> 
+    <a href="https://www.w3.org/sass/" target="_blank">
+        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/sass/sass-original.svg" alt="sass" style="max-width:100%;" width="40" height="40">
+    </a> 
+    <a target="_blank" rel="" href="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/bootstrap/bootstrap.png"> 
+        <img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/bootstrap/bootstrap.png" style="max-width: 100%;" height="40">
+    </a> 
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank"> 
+        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="Javascript" width="40" height="40"/>
+    </a> 
+    <a href="https://reactnative.dev/" target="_blank" rel="noreferrer"> 
+        <img src="https://reactnative.dev/img/header_logo.svg" alt="reactnative" width="40" height="40"/> 
+    </a> 
+    <a href="https://nodejs.org/" target="_blank" rel="gastigk"> 
+        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs"  height="40"/> 
+    </a>  
+    <a href="https://www.mongodb.com/" target="_blank" rel="gastigk"> 
+        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original-wordmark.svg" alt="mongodb.com"  height="40"/> 
+    </a>
+    <a href="https://www.express.com/" target="_blank" rel="gastigk"> 
+        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="express.com"  height="40"/> 
+    </a>
+    <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> 
+        <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> 
+    </a> 
 </p>
