@@ -25,8 +25,7 @@ router.post('/', async (req, res) => {
 
     if (!user) {
       return res
-        .status(400)
-        .send({ status: 'error', error: 'Invalid credentials' });
+        .status(400).render('error/user-pass-wrong');
     }
 
     bcrypt.compare(password, user.password).then((result) => {
@@ -40,13 +39,12 @@ router.post('/', async (req, res) => {
         res.cookie(cokieName, userToken).redirect('/');
       } else {
         return res
-          .status(400)
-          .send({ status: 'error', error: 'Invalid credentials' });
+          .status(400).render('error/user-pass-wrong');
       }
     });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ message: 'Internal server error' });
+    return res.status(500).render('error/under-maintenance');
   }
 });
 
@@ -72,7 +70,7 @@ router.get('/user', (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ message: 'Internal server error' });
+    return res.status(500).render('error/under-maintenance');
   }
 });
 

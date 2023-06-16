@@ -37,7 +37,7 @@ router.get('/:cartId/:itemId', async (req, res) => {
     return res.render('cartsDeleteById', { cartId, itemId, user });
   } catch (error) {
     console.error(error);
-    return res.status(500).render('notCart');
+    return res.status(404).render('cart-not-found');
   }
 });
 

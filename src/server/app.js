@@ -188,7 +188,7 @@ app.use('/signupadmin', signupAdminRouter);
 app.use('/github', loginGithubRouter);
 app.use('/admin_panel', admin_panel);
 app.use((req, res) => {
-  res.status(404).render('error/error404');
+  res.status(500).render('error/error-page');
 });
 
 // configuration of websocket

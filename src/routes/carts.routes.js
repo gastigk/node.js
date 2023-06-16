@@ -113,7 +113,7 @@ router.get('/', async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    res.status(500).render('notCart');
+    res.status(500).render('cart-not-found');
   }
 });
 

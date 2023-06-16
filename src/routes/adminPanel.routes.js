@@ -16,18 +16,18 @@ router.get('/', async (req, res) => {
   const userToken = req.cookies[cookieName];
 
   if (!userToken) {
-    return res.status(403).render('notAuthorized');
+    return res.status(403).render('error/not-authorized');
   }
 
   try {
     const decodedToken = jwt.verify(userToken, secret);
     const user = decodedToken;
     if (user.role !== 'admin') {
-      return res.status(403).render('notAuthorized');
+      return res.status(403).render('error/not-authorized');
     }
     res.status(200).render('admin_panel', { products, user });
   } catch (error) {
-    return res.status(403).render('notAuthorized');
+    return res.status(403).render('error/not-authorized');
   }
 });
 
