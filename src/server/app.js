@@ -67,23 +67,23 @@ dotenv.config();
 const prodPort = process.env.PROD_PORT;
 const devPort = process.env.DEV_PORT;
 
-const prodMongo = process.env.MONGO_CONNECTION;
-const prodBD = process.env.MONGO_DATABASE;
-const localBD = process.env.LOCAL_CONNECTION;
-const localBDName = process.env.LOCAL_DATABASE;
+const prodMongo = process.env.MONGO_URL;
+const prodBD = process.env.MONGO_DBA;
+const localBD = process.env.LOCAL_URL;
+const localBDName = process.env.LOCAL_DBA;
 
 // verification option --database
 if (program.opts().database === 'atlas') {
-  process.env.MONGO_CONNECTION = prodMongo;
-  process.env.MONGO_DATABASE = prodBD;
+  process.env.MONGO_URL = prodMongo;
+  process.env.MONGO_DBA = prodBD;
 } else {
-  process.env.MONGO_CONNECTION = localBD;
-  process.env.MONGO_DATABASE = localBDName;
+  process.env.MONGO_URL = localBD;
+  process.env.MONGO_DBA = localBDName;
 }
 
 // configuration of mongoose
-const mongoConnection = process.env.MONGO_CONNECTION;
-const mongoDatabase = process.env.MONGO_DATABASE;
+const mongoConnection = process.env.MONGO_URL;
+const mongoDatabase = process.env.MONGO_DBA;
 
 async function connectToDatabase() {
   try {
