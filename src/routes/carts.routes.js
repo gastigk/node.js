@@ -67,7 +67,7 @@ router.get('/', async (req, res) => {
     }
 
     if (!cart || cart.items.length === 0 || (!userEmail && cart.user.email)) {
-      req.flash('info', 'No hay productos en el carrito');
+      req.flash('info', 'Cart empty');
       return res.redirect('/');
     }
     const cartId = cart._id.toString();
@@ -112,13 +112,12 @@ router.get('/', async (req, res) => {
       user,
     });
   } catch (err) {
-    console.error(err);
-    res.status(500).render('cart-not-found');
+    res.status(500).render('error/cart-not-found');
   }
 });
 
 // emptying shopping cart
-router.post('/:cartId/vaciar', async (req, res) => {
+router.post('/:cartId/void', async (req, res) => {
   const userToken = req.cookies[cokieName];
   let user = null;
   let userEmail = null;
@@ -136,22 +135,21 @@ router.post('/:cartId/vaciar', async (req, res) => {
     );
 
     if (!cart) {
-      req.flash('error', 'No se encontró el carrito');
-      return res.redirect('/');
+      req.flash('error', 'cart not found');
+      return res.redirect('error/cart-not-found');
     }
 
     cart.items = [];
     await cart.save();
-    req.flash('success', 'Carrito vaciado exitosamente');
-    res.redirect('/');
+    req.flash('success', 'cart successfully emptied');
+    res.redirect('/carts');
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Error al vaciar el carrito');
+    res.status(500).render('error/error-page');
   }
 });
 
 // deleted cart from DBA
-router.post('/:cartId/eliminar', async (req, res) => {
+router.post('/:cartId/delete', async (req, res) => {
   const userToken = req.cookies[cokieName];
   let user = null;
   let userEmail = null;
@@ -170,15 +168,14 @@ router.post('/:cartId/eliminar', async (req, res) => {
     });
 
     if (result.deletedCount === 0) {
-      req.flash('error', 'No se encontró el carrito');
+      req.flash('error', 'cart not found');
       return res.redirect('/');
     }
 
-    req.flash('success', 'Carrito vaciado exitosamente');
-    res.redirect('/');
+    req.flash('success', 'cart successfully emptied');
+    res.redirect('/carts');
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Error al vaciar el carrito');
+    res.status(500).render('error/error-page');
   }
 });
 
@@ -200,8 +197,8 @@ router.put('/:cartId/:itemId', async (req, res) => {
     const { cantidad } = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(cartId)) {
-      req.flash('error', 'ID de carrito inválido');
-      return res.redirect('/');
+      req.flash('error', 'invalid cart id');
+      return res.redirect('error/cart-not-found');
     }
 
     const cart = await Cart.findOneAndUpdate(
@@ -211,15 +208,14 @@ router.put('/:cartId/:itemId', async (req, res) => {
     );
 
     if (!cart) {
-      req.flash('error', 'No se encontró el carrito');
-      return res.redirect('/');
+      req.flash('error', 'cart not found');
+      return res.redirect('error/cart-not-found');
     }
 
-    req.flash('success', 'Cantidad actualizada exitosamente');
+    req.flash('success', 'quantity updated successfully');
     res.redirect('/carts');
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Error al actualizar la cantidad del producto');
+    res.status(500).render('error/error-page');
   }
 });
 
@@ -240,8 +236,8 @@ router.post('/:pid', async (req, res) => {
     const producto = await Product.findOne({ _id: productId });
 
     if (!userEmail) {
-      req.flash('error', 'Usuario no autenticado');
-      res.status(500).redirect('/login');
+      req.flash('error', 'user not authenticated');
+      res.status(500).redirect('error/user-not-found');
       return;
     }
 
@@ -265,14 +261,14 @@ router.post('/:pid', async (req, res) => {
       await cart.save();
       Swal.fire({
         icon: 'success',
-        title: 'Bien..!!',
-        text: 'Producto agregado al carrito',
+        title: 'Great!',
+        text: 'product add to cart',
       });
       const referer = req.header('Referer');
       res.redirect(referer || '/');
     }
   } catch (err) {
-    res.status(500).redirect('/login');
+    res.status(500).render('error/error-page');
   }
 });
 

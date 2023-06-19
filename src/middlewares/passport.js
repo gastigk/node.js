@@ -30,27 +30,26 @@ export const authenticateJWT = (req, res, next) => {
   const token = req.headers.authorization;
 
   if (!token) {
-    return res.status(401).json({ message: 'Missing authorization token' });
+    return res.status(401).render('error/missing-auth'); // missing authorization token
   }
 
   jwt.verify(token, secret, (err, decodedToken) => {
     if (err) {
-      return res.status(403).json({ message: 'Invalid token' });
+      return res.status(403).render('error/not-authorized'); // invalid token
     }
 
     User.findById(decodedToken.userId)
       .exec()
       .then((user) => {
         if (!user) {
-          return res.status(404).json({ message: 'User not found' });
+          return res.status(404).render('error/user-not-found');
         }
 
         req.user = user;
         next();
       })
       .catch((err) => {
-        console.error(err);
-        return res.status(500).json({ message: 'Internal server error' });
+        return res.status(500).render('error/under-maintenance');
       });
   });
 };
@@ -90,7 +89,6 @@ passport.use(
         await newUser.save();
         return done(null, newUser);
       } catch (err) {
-        console.error(err);
         return done(err);
       }
     }
@@ -108,7 +106,7 @@ const initializePassport = () => {
     done(null, user);
   });
 
-  return passport.initialize(); 
+  return passport.initialize();
 };
 
 export default initializePassport;

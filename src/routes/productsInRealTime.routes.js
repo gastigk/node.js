@@ -37,7 +37,7 @@ router.get('/', isAdmin, (req, res) => {
 router.post('/', upload.single('thumbnail'), async (req, res) => {
   const { title, category, size, code, description, price, stock } = req.body;
   if (!title) {
-    return res.status(400).send('El campo "title" es obligatorio');
+    return res.status(400).send('complete title please');
   }
 
   const newProduct = new Product({
@@ -57,7 +57,7 @@ router.post('/', upload.single('thumbnail'), async (req, res) => {
     const product = await Product.find().lean();
     res.render('realtimeproducts', { product: product });
   } catch (err) {
-    res.status(500).send('Error al guardar el producto en la base de datos');
+    res.status(500).render('error/under-maintenance');
   }
 });
 

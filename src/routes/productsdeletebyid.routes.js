@@ -23,10 +23,10 @@ router.get('/:id', isAdmin, async (req, res) => {
     if (product) {
       res.render('productsdeletebyid', { product, user });
     } else {
-      res.sendStatus(404).send('product no found');
+      res.sendStatus(404).render('error/product-not-found');
     }
   } catch (error) {
-    res.sendStatus(500).send('UPS! we have a problem');
+    res.sendStatus(500).render('error/under-maintenance');
   }
 });
 

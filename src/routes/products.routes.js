@@ -24,7 +24,7 @@ router.get('/', async (req, res, next) => {
     }
 
     const page = parseInt(req.query.page) || 1;
-    const limit = 8;
+    const limit = 9;
     const category = req.query.category;
     const filter = category ? { category } : {};
 
@@ -34,18 +34,18 @@ router.get('/', async (req, res, next) => {
       { $limit: limit },
     ]);
 
-    const productos = result;
+    const products = result;
     const prevLink = page > 1 ? `/products?page=${page - 1}` : '';
     const nextLink =
-      productos.length === limit ? `/products?page=${page + 1}` : '';
+      products.length === limit ? `/products?page=${page + 1}` : '';
 
     const allCategories = await Product.distinct('category');
 
     res.render('products', {
-      productos,
+      products,
+      page,
       prevLink,
       nextLink,
-      allCategories,
       user,
     });
   } catch (err) {
@@ -68,7 +68,7 @@ const upload = multer({ storage });
 router.post('/', upload.single('thumbnail'), async (req, res) => {
   const { title, category, description, price, code, stock } = req.body;
   if (!title) {
-    return res.status(400).send('El campo "title" es obligatorio');
+    return res.status(400).send('complete the title please');
   }
 
   const newProduct = new Product({
@@ -86,11 +86,11 @@ router.post('/', upload.single('thumbnail'), async (req, res) => {
     await newProduct.save();
 
     const page = 1;
-    const limit = 16;
+    const limit = 9;
 
     const result = await Product.paginate({}, { page, limit, lean: true });
 
-    const productos = result.docs;
+    const products = result.docs;
     const prevLink = result.hasPrevPage
       ? `/products?page=${result.prevPage}`
       : '';
@@ -98,9 +98,15 @@ router.post('/', upload.single('thumbnail'), async (req, res) => {
       ? `/products?page=${result.nextPage}`
       : '';
 
-    res.render('products', { productos, prevLink, nextLink });
+      res.render('products', {
+        products,
+        page,
+        prevLink,
+        nextLink,
+        user,
+      });
   } catch (err) {
-    res.status(500).send('Error al guardar el producto en la base de datos');
+    res.status(500).render('error/under-maintenance');
   }
 });
 
@@ -115,7 +121,7 @@ router.get('/filter/:category', async (req, res, next) => {
     }
 
     const page = parseInt(req.query.page) || 1;
-    const limit = 8;
+    const limit = 9;
     const category = req.params.category;
     const filter = category ? { category } : {};
 
@@ -129,13 +135,13 @@ router.get('/filter/:category', async (req, res, next) => {
       { $limit: limit },
     ]);
 
-    const productos = result;
+    const products = result;
     const prevLink = `/products/filter/${category}?page=${currentPage - 1}`;
     const nextLink = `/products/filter/${category}?page=${currentPage + 1}`;
 
     const allProducts = await Product.find({}).distinct('category');
     res.render('products', {
-      productos,
+      products,
       prevLink,
       nextLink,
       allProducts,

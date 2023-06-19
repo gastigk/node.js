@@ -23,7 +23,7 @@ router.get('/', isAdmin, async (req, res) => {
     res.render('users', { users: userObjects, user });
   } catch (err) {
     console.error(err);
-    res.status(500).send('Error del servidor');
+    res.status(500).render('error/under-maintenance');
   }
 });
 
@@ -33,13 +33,13 @@ router.get('/edit/:id', isAdmin, async (req, res) => {
     const user = await User.findById(userId);
 
     if (!user) {
-      return res.status(404).send('Usuario no encontrado');
+      return res.status(404).render('error/user-not-found');
     }
 
     res.render('editUser', { user });
   } catch (err) {
     console.error(err);
-    res.status(500).send('Error del servidor');
+    res.status(500).render('error/under-maintenance');
   }
 });
 
@@ -63,24 +63,24 @@ router.post('/edit/:id', isAdmin, async (req, res) => {
     );
 
     if (!updatedUser) {
-      return res.status(404).send('Usuario no encontrado');
+      return res.status(404).render('error/user-not-found');
     }
 
     res.redirect('/users');
   } catch (err) {
     console.error(err);
-    res.status(500).send('Error del servidor');
+    res.status(500).render('error/under-maintenance');
   }
 });
 
-// Ruta para eliminar un usuario
+// delete user
 router.get('/delete/:id', isAdmin, async (req, res) => {
   try {
     const userId = req.params.id;
     const user = await User.findById(userId);
 
     if (!user) {
-      return res.status(404).send('Usuario no encontrado');
+      return res.status(404).render('error/user-not-found');
     }
 
     // Eliminar el usuario de la base de datos
@@ -89,7 +89,7 @@ router.get('/delete/:id', isAdmin, async (req, res) => {
     res.render('userDelete', { user });
   } catch (err) {
     console.error(err);
-    res.status(500).send('Error del servidor');
+    res.status(500).render('error/under-maintenance');
   }
 });
 

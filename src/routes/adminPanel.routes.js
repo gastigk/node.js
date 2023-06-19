@@ -25,7 +25,7 @@ router.get('/', async (req, res) => {
     if (user.role !== 'admin') {
       return res.status(403).render('error/not-authorized');
     }
-    res.status(200).render('admin_panel', { products, user });
+    res.status(200).render('admin-panel', { products, user });
   } catch (error) {
     return res.status(403).render('error/not-authorized');
   }

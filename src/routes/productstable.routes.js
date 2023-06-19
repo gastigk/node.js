@@ -33,7 +33,6 @@ router.get('/', isAdmin, async (req, res) => {
     const products = await Product.find().sort(sortQuery).lean();
     res.render('productstable', { products, user });
   } catch (error) {
-    console.error(error);
     res.status(500).send('Error al obtener los productos.');
   }
 });

@@ -21,8 +21,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res, next) => {
   passport.authenticate('signup', (err, user, info) => {
     if (err) {
-      console.error(err);
-      return res.status(500).send('Error de servidor');
+      return res.status(500).render('error/under-maintenance');
     }
 
     if (!user) {
@@ -35,8 +34,7 @@ router.post('/', (req, res, next) => {
 
     req.login(user, (err) => {
       if (err) {
-        console.error(err);
-        return res.status(500).send('Error de servidor');
+        return res.status(500).render('error/under-maintenance');
       }
 
       res.redirect('/users');

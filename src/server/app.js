@@ -55,8 +55,8 @@ import admin_panel from '../routes/adminPanel.routes.js';
 // configuration Commander
 const program = new Command();
 program
-  .option('--mode <mode>', 'Puerto', 'prod')
-  .option('--database <database>', 'Base de Datos', 'atlas');
+  .option('--mode <mode>', 'Port', 'prod')
+  .option('--database <database>', 'BDA', 'atlas');
 program.parse();
 
 // read environment variables
@@ -88,11 +88,7 @@ const mongoDatabase = process.env.MONGO_DBA;
 async function connectToDatabase() {
   try {
     await mongoose.connect(mongoConnection);
-    console.log(`Conexión exitosa a la base de datos "${mongoDatabase}"`);
   } catch (error) {
-    console.log(
-      `No se puede conectar a la Base de Datos ${mongoDatabase}. Error: ${error}`
-    );
     process.exit();
   }
 }
@@ -187,9 +183,6 @@ app.use('/users', usersRouter);
 app.use('/signupadmin', signupAdminRouter);
 app.use('/github', loginGithubRouter);
 app.use('/admin_panel', admin_panel);
-app.use((req, res) => {
-  res.status(500).render('error/error-page');
-});
 
 // configuration of websocket
 const socketServer = new Server(httpServer);
@@ -211,12 +204,8 @@ socketServer.on('connection', (socketClient) => {
       { $push: { message: data.message } },
       { upsert: true }
     )
-      .then(() => {
-        console.log(`Message of ${data.user} saved in the model`);
-      })
-      .catch((err) => {
-        console.error('Error to saved the message:', err);
-      });
+      .then(() => {})
+      .catch((err) => {});
   });
 
   socketClient.on('product', (dataProd) => {

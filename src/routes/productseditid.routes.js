@@ -22,10 +22,10 @@ router.get('/:pid', isAdmin, async (req, res) => {
     if (producto) {
       res.render('productsedit', { producto, user });
     } else {
-      res.status(404).send('product no found');
+      res.status(404).render('error/product-not-found');
     }
   } catch (error) {
-    res.status(500).send('UPS! we have a problem');
+    res.status(500).render('error/under-maintenance');
   }
 });
 

@@ -31,7 +31,6 @@ router.get('/:pid', isAdmin, async (req, res) => {
       res.status(404).send('Producto no encontrado');
     }
   } catch (error) {
-    console.error(error);
     res.status(500).send('Error al obtener el producto');
   }
 });
@@ -54,7 +53,6 @@ router.post('/:id', upload.single('thumbnail'), async (req, res) => {
 
     res.redirect(`/productseditbyid/${productId}`);
   } catch (error) {
-    console.error(error);
     res.status(500).send('Error al editar el producto');
   }
 });

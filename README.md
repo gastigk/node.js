@@ -14,7 +14,7 @@
 
 ### Environment variables
 
-<h3 align="center"> 
+<h3 align="left"> 
 LOCAL_URL="mongodb://localhost:27017/e-commerce"
 LOCAL_DBA="e-commerce"
 MONGO_URL="mongodb+srv://ancestral:ancestral@clusterancestral.nkbaykl.mongodb.net/e-commerce"

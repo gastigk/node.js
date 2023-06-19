@@ -43,7 +43,6 @@ router.post('/', async (req, res) => {
       }
     });
   } catch (err) {
-    console.error(err);
     return res.status(500).render('error/under-maintenance');
   }
 });
@@ -53,7 +52,7 @@ router.get('/user', (req, res) => {
   const userToken = req.cookies[cokieName];
 
   if (!userToken) {
-    return res.status(401).send({ status: 'error', error: 'Unauthorized' });
+    return res.status(401).render('error/not-authorized');
   }
 
   try {
@@ -61,15 +60,12 @@ router.get('/user', (req, res) => {
     const userId = decodedToken.userId;
     User.findById(userId, (err, user) => {
       if (err || !user) {
-        return res
-          .status(404)
-          .send({ status: 'error', error: 'User not found' });
+        return res.status(404).render('error/user-not-found');
       }
 
       return res.status(200).send({ status: 'success', user });
     });
   } catch (err) {
-    console.error(err);
     return res.status(500).render('error/under-maintenance');
   }
 });

@@ -21,7 +21,7 @@ router.get('/:pid', async (req, res) => {
   if (product) {
     res.render('productsid', { product, user });
   } else {
-    res.status(404).send('Producto no encontrado');
+    res.status(404).render('error/product-not-found');
   }
 });
 

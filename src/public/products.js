@@ -17,7 +17,6 @@ productForm.addEventListener('submit', (evt) => {
   };
 
   socket.emit('product-list', { product: newProduct });
-  console.log(newProduct);
   let productListElement = document.querySelector(
     'div#product-list.d-flex.flex-wrap.justify-content-center'
   );

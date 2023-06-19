@@ -8,8 +8,7 @@ router.get('/', async (req, res) => {
     const messages = await Chat.find();
     res.render('chat', { messages });
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Error! try again');
+    res.status(500).render('error/under-maintenance');
   }
 });
 
@@ -20,8 +19,7 @@ router.post('/', async (req, res) => {
     await newMessage.save();
     res.redirect('/chat');
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Error! dont saved the message');
+    res.status(500).render('error/under-maintenance'); // dont saved the message
   }
 });
 

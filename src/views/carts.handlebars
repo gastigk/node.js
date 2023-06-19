@@ -86,7 +86,7 @@
         </div>
     </form>
 
-    <form method="POST" action="/carts/{{ cartId }}/vaciar" id="emptyCartForm">
+    <form method="POST" action="/carts/{{ cartId }}/void" id="emptyCartForm">
     <input type="hidden" name="cartId" value="{{ cartId }}">
         <div class="input-group group-comprar">
             <button type="submit" class="btn btn-secondary">
@@ -101,7 +101,7 @@
         </div>
     </form>
 
-    <form action="/carts/{{ cartId }}/eliminar" method="POST">
+    <form action="/carts/{{ cartId }}/delete" method="POST">
     <input type="hidden" name="cartId" value="{{ cartId }}">
         <div class="input-group group-comprar">
             <button type="submit" class="btn btn-danger">
