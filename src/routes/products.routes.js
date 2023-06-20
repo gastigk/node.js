@@ -36,17 +36,21 @@ router.get('/', async (req, res, next) => {
 
     const products = result;
     const prevLink = page > 1 ? `/products?page=${page - 1}` : '';
-    const nextLink =
-      products.length === limit ? `/products?page=${page + 1}` : '';
+    const nextLink = products.length === limit ? `/products?page=${page + 1}` : '';
+
+    const count = await Product.countDocuments(filter);
+    const totalPages = Math.ceil(count / limit);
+    const currentPage = Math.min(page, totalPages);
 
     const allCategories = await Product.distinct('category');
 
     res.render('products', {
       products,
-      page,
       prevLink,
       nextLink,
       user,
+      currentPage,
+      allCategories
     });
   } catch (err) {
     next(err);
