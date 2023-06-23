@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
 
-// Environment variables
+// environment variables
 const clientID = process.env.GITHUB_CLIENT_ID;
 const clientSecret = process.env.GITHUB_CLIENT_SECRET;
 const callbackURL = process.env.GITHUB_CALLBACK_URL;

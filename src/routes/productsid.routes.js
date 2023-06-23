@@ -1,23 +1,14 @@
 import { Router } from 'express';
 import Product from '../dao/models/products.model.js';
 import Handlebars from 'handlebars';
-import jwt from 'jsonwebtoken';
+import { getUserFromToken } from '../middlewares/user.middleware.js';
 
 const router = Router();
-
-// read environment variables
-import dotenv from 'dotenv';
-dotenv.config();
-
-const secret = process.env.PRIVATE_KEY;
-const cokieName = process.env.JWT_COOKIE_NAME;
 
 router.get('/:pid', async (req, res) => {
   const productId = req.params.pid;
   const product = await Product.findById(productId).lean();
-  const userToken = req.cookies[cokieName];
-  const decodedToken = jwt.verify(userToken, secret);
-  const user = decodedToken;
+  const user = getUserFromToken(req);
   if (product) {
     res.render('productsid', { product, user });
   } else {

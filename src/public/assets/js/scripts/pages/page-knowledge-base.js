@@ -1,10 +1,6 @@
 /*=========================================================================================
     File Name: page-knowledge-base.js
     Description: Knowledge Base Page Script
-    ----------------------------------------------------------------------------------------
-    Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
-    Author: PIXINVENT
-    Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
 $(function () {

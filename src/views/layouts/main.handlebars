@@ -18,6 +18,8 @@
 
         <!-- BEGIN: Vendor CSS-->
         <link rel="stylesheet" type="text/css" href="./assets/vendors/css/vendors.min.css" />
+        <link rel="stylesheet" type="text/css" href="./assets/vendors/css/charts/apexcharts.css">
+        <link rel="stylesheet" type="text/css" href="./assets/vendors/css/extensions/toastr.min.css">
         <!-- END: Vendor CSS-->
 
         <!-- BEGIN: Theme CSS-->
@@ -31,10 +33,7 @@
 
         <!-- BEGIN: Page CSS-->
         <link rel="stylesheet" type="text/css" href="./assets/css/core/menu/menu-types/vertical-menu.css" />
-        <link rel="stylesheet" type="text/css" href="./assets/css/pages/page-misc.css">
-        <link rel="stylesheet" type="text/css" href="./assets/css/plugins/extensions/ext-component-sliders.css">
-        <link rel="stylesheet" type="text/css" href="./assets/css/pages/app-ecommerce.css">
-        <link rel="stylesheet" type="text/css" href="./assets/css/plugins/extensions/ext-component-toastr.css">
+        <link rel="stylesheet" type="text/css" href="./assets/css/plugins/charts/chart-apex.css">
         <!-- END: Page CSS-->
 
         <!-- BEGIN: Custom CSS-->
@@ -199,13 +198,13 @@
                     <li class="nav-item">
                         <a class="d-flex align-items-center" href="/">
                             <i data-feather="home"></i>
-                            <span class="menu-title text-truncate" data-i18n="Home">Inicio</span>
+                            <span class="menu-title text-truncate" data-i18n="Home">Home</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="d-flex align-items-center" href="/">
                             <i data-feather="circle"></i>
-                            <span class="menu-title text-truncate" data-i18n="Products"> Productos</span>
+                            <span class="menu-title text-truncate" data-i18n="Products"> Products</span>
                         </a>
                         <ul class="menu-content">
                             <li>
@@ -219,13 +218,13 @@
                             <li>
                                 <a class="d-flex align-items-center" href="/productstable">
                                     <i data-feather="circle"></i>
-                                    <span class="menu-item text-truncate" data-i18n="eCommerce">Listado</span>
+                                    <span class="menu-item text-truncate" data-i18n="eCommerce">List</span>
                                 </a>
                             </li>
                             <li>
                                 <a class="d-flex align-items-center" href="/productsedit">
                                     <i data-feather="circle"></i>
-                                    <span class="menu-item text-truncate" data-i18n="eCommerce">Editar</span>
+                                    <span class="menu-item text-truncate" data-i18n="eCommerce">Edit</span>
                                     <span class="badge badge-light-success rounded-pill ms-auto me-1">new</span>
                                 </a>
                             </li>
@@ -236,7 +235,7 @@
                     <li class="nav-item">
                         <a class="d-flex align-items-center{{#if emptyCart}} disabled{{/if}}" href="/carts">
                             <i data-feather="circle"></i>
-                            <span class="menu-title text-truncate" data-i18n="Cart">Carrito</span>
+                            <span class="menu-title text-truncate" data-i18n="Cart">Cart</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -258,6 +257,12 @@
                     </li>
                     {{else}}
                     <li class=" nav-item">
+                        <a class="d-flex align-items-center" href="/signup">
+                            <i data-feather="user"></i>
+                            <span class="menu-title text-truncate" data-i18n="User">Sign up</span>
+                        </a>
+                    </li>
+                    <li class=" nav-item">
                         <a class="d-flex align-items-center" href="/login">
                             <i data-feather="user"></i>
                             <span class="menu-title text-truncate" data-i18n="User">Login</span>
@@ -267,9 +272,9 @@
                     {{#if user.role}}
                     {{#ifEqual user.role "admin"}}
                     <li class=" nav-item">
-                        <a class="d-flex align-items-center" href="/admin_panel">
+                        <a class="d-flex align-items-center" href="/admin-panel">
                             <i data-feather="user"></i>
-                            <span class="menu-title text-truncate" data-i18n="User">Panel Administrador</span>
+                            <span class="menu-title text-truncate" data-i18n="User">Admin control</span>
                         </a>
                     </li>
                     {{/ifEqual}}
@@ -318,9 +323,6 @@
         <!-- BEGIN: Page Vendor JS-->
         <script src="./assets/vendors/js/forms/wizard/bs-stepper.min.js"></script>
         <script src="./assets/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js"></script>
-        <script src="./assets/vendors/js/extensions/wNumb.min.js"></script>
-        <script src="./assets/vendors/js/extensions/nouislider.min.js"></script>
-        <script src="./assets/vendors/js/extensions/toastr.min.js"></script>
         <!-- END: Page Vendor JS-->
 
         <!-- BEGIN: Theme JS-->
@@ -330,8 +332,6 @@
         <!-- END: Theme JS-->
 
         <!-- BEGIN: Page JS-->
-        <script src="./assets/js/scripts/pages/app-ecommerce.js"></script>
-        <script src="./assets/js/scripts/pages/app-ecommerce-checkout.min.js"></script>
         <!-- END: Page JS-->
 
         <script>

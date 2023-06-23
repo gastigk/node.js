@@ -4,7 +4,7 @@ import { Router } from 'express';
 const router = Router();
 
 router.get('/', (req, res) => {
-  res.render('signup');
+  res.render('/signup');
 });
 
 router.post('/', (req, res, next) => {

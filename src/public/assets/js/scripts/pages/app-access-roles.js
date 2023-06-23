@@ -1,7 +1,7 @@
 $(function () {
   ('use strict');
   var dtUserTable = $('.user-list-table'),
-    assetPath = '../../../app-assets/',
+    assetPath = '../../../assets/',
     userView = 'app-user-view-account.html',
     statusObj = {
       1: { title: 'Pending', class: 'badge-light-warning' },

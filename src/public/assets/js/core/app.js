@@ -1,10 +1,6 @@
 /*=========================================================================================
   File Name: app.js
   Description: Template related app JS.
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: hhttp://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 window.colors = {
   solid: {
@@ -34,7 +30,7 @@ window.colors = {
   var $html = $('html');
   var $body = $('body');
   var $textcolor = '#4e5154';
-  var assetPath = '../../../app-assets/';
+  var assetPath = '../../../assets/';
 
   if ($('body').attr('data-framework') === 'laravel') {
     assetPath = $('body').attr('data-asset-path');

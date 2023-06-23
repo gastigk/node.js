@@ -1,22 +1,13 @@
 import { Router } from 'express';
 import User from '../dao/models/user.model.js';
 import isAdmin from '../middlewares/isAdmin.js';
-import jwt from 'jsonwebtoken';
+import { getUserFromToken } from '../middlewares/user.middleware.js';
 
 const router = Router();
 
-// read environment variables
-import dotenv from 'dotenv';
-dotenv.config();
-
-const secret = process.env.PRIVATE_KEY;
-const cokieName = process.env.JWT_COOKIE_NAME;
-
 // create new user
 router.get('/', isAdmin, async (req, res) => {
-  const userToken = req.cookies[cokieName];
-  const decodedToken = jwt.verify(userToken, secret);
-  const user = decodedToken;
+  const user = getUserFromToken(req);
   try {
     const users = await User.find();
     const userObjects = users.map((user) => user.toObject());
@@ -33,12 +24,12 @@ router.get('/edit/:id', isAdmin, async (req, res) => {
     const user = await User.findById(userId);
 
     if (!user) {
+      user = getUserFromToken(req);
       return res.status(404).render('error/user-not-found');
     }
 
     res.render('editUser', { user });
   } catch (err) {
-    console.error(err);
     res.status(500).render('error/under-maintenance');
   }
 });
@@ -82,9 +73,7 @@ router.get('/delete/:id', isAdmin, async (req, res) => {
     if (!user) {
       return res.status(404).render('error/user-not-found');
     }
-
-    // Eliminar el usuario de la base de datos
-    await User.findByIdAndRemove(userId);
+    await User.findByIdAndRemove(userId); //remove user of the DBA
 
     res.render('userDelete', { user });
   } catch (err) {

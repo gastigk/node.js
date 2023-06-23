@@ -9,11 +9,15 @@ import exphbs from 'express-handlebars';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';
 import { Command } from 'commander';
+import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
 import flash from 'express-flash';
+import cors from 'cors';
 
 // import middlewares
 import initializePassportGH from '../middlewares/passportGithub.js';
 import initializePassport from '../middlewares/passport.js';
+import { getUserFromToken } from '../middlewares/user.middleware.js';
 
 // import models
 import Messages from '../dao/models/messages.model.js';
@@ -26,10 +30,7 @@ const httpServer = app.listen(port, () => {
 });
 
 // definning __dirname
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-const __filename_utils = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename_utils);
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 // routes
 import indexRouter from '../routes/index.routes.js';
@@ -50,7 +51,7 @@ import signupAdminRouter from '../routes/signupadmin.routes.js';
 import logoutRouter from '../routes/logout.routes.js';
 import checkoutRouter from '../routes/checkout.routes.js';
 import usersRouter from '../routes/users.routes.js';
-import admin_panel from '../routes/adminPanel.routes.js';
+import adminPanel from '../routes/adminPanel.routes.js';
 
 // configuration Commander
 const program = new Command();
@@ -60,7 +61,6 @@ program
 program.parse();
 
 // read environment variables
-import * as dotenv from 'dotenv';
 dotenv.config();
 
 // environment variables
@@ -87,12 +87,13 @@ const mongoDatabase = process.env.MONGO_DBA;
 
 async function connectToDatabase() {
   try {
-    await mongoose.connect(mongoConnection);
+      await mongoose.connect(mongoConnection);
+      console.log(`Successful connection to the database "${mongoDatabase}"`);
   } catch (error) {
-    process.exit();
+      console.log(`Cannot connect to database ${mongoDatabase}. Error type: ${error}`);
+      process.exit();
   }
 }
-
 connectToDatabase();
 
 // configuration middleware express-session con MongoStore
@@ -153,7 +154,7 @@ app.use(flash());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-import bodyParser from 'body-parser';
+// configuration bodyParser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -162,8 +163,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
 // views
-app.use(express.static(__dirname + '../../public'));
-app.set('views', path.join(__dirname, '../views'));
+app.use(express.static(path.resolve('..', 'public')));
+app.set('views', '../views/');
 app.use('/', indexRouter);
 app.use('/products', productRouter);
 app.use('/productstable', productsTableRouter);
@@ -182,7 +183,15 @@ app.use('/checkout', checkoutRouter);
 app.use('/users', usersRouter);
 app.use('/signupadmin', signupAdminRouter);
 app.use('/github', loginGithubRouter);
-app.use('/admin_panel', admin_panel);
+app.use('/admin-panel', adminPanel);
+app.get('*', (req, res) => {
+  const user = getUserFromToken(req);    
+  (!user) ? res.status(404).render('error/error-page'):
+  res.status(404).render('error/error-page', { user });  
+});
+
+// configuration of cors
+app.use(cors())
 
 // configuration of websocket
 const socketServer = new Server(httpServer);

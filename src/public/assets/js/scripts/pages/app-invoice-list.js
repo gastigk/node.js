@@ -1,18 +1,13 @@
 /*=========================================================================================
     File Name: app-invoice-list.js
     Description: app-invoice-list Javascripts
-    ----------------------------------------------------------------------------------------
-    Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
-   Version: 1.0
-    Author: PIXINVENT
-    Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
 $(function () {
   'use strict';
 
   var dtInvoiceTable = $('.invoice-list-table'),
-    assetPath = '../../../app-assets/',
+    assetPath = '../../../assets/',
     invoicePreview = 'app-invoice-preview.html',
     invoiceAdd = 'app-invoice-add.html',
     invoiceEdit = 'app-invoice-edit.html';

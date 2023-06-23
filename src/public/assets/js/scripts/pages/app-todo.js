@@ -1,10 +1,6 @@
 /*=========================================================================================
     File Name: app-todo.js
     Description: app-todo
-    ----------------------------------------------------------------------------------------
-    Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
-    Author: PIXINVENT
-    Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
 'use strict';
@@ -38,7 +34,7 @@ $(function () {
     checkboxId = 100,
     isRtl = $('html').attr('data-textdirection') === 'rtl';
 
-  var assetPath = '../../../app-assets/';
+  var assetPath = '../../../assets/';
   if ($('body').attr('data-framework') === 'laravel') {
     assetPath = $('body').attr('data-asset-path');
   }

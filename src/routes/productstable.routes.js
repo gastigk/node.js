@@ -2,21 +2,12 @@ import { Router } from 'express';
 import Product from '../dao/models/products.model.js';
 import isAdmin from '../middlewares/isAdmin.js';
 import Handlebars from 'handlebars';
-import jwt from 'jsonwebtoken';
+import { getUserFromToken } from '../middlewares/user.middleware.js';
 
 const router = Router();
 
-// read environment variables
-import dotenv from 'dotenv';
-dotenv.config();
-
-const secret = process.env.PRIVATE_KEY;
-const cokieName = process.env.JWT_COOKIE_NAME;
-
 router.get('/', isAdmin, async (req, res) => {
-  const userToken = req.cookies[cokieName];
-  const decodedToken = jwt.verify(userToken, secret);
-  const user = decodedToken;
+  const user = getUserFromToken(req);
   const sortOption = req.query.sortOption;
   let sortQuery = {};
   if (sortOption === 'desc') {
@@ -26,14 +17,14 @@ router.get('/', isAdmin, async (req, res) => {
   }
 
   if (sortOption === 'unorder') {
-    return res.redirect('/productos');
+    return res.redirect('/products');
   }
 
   try {
     const products = await Product.find().sort(sortQuery).lean();
-    res.render('productstable', { products, user });
+    res.render('/productstable', { products, user });
   } catch (error) {
-    res.status(500).send('Error al obtener los productos.');
+    res.status(500).render('error/under-maintenance');
   }
 });
 

@@ -3,16 +3,14 @@ import multer from 'multer';
 import path from 'path';
 import Product from '../dao/models/products.model.js';
 import isAdmin from '../middlewares/isAdmin.js';
-import jwt from 'jsonwebtoken';
+import { getUserFromToken } from '../middlewares/user.middleware.js';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const router = Router();
-
-// read environment variables
-import dotenv from 'dotenv';
-dotenv.config();
-
-const secret = process.env.PRIVATE_KEY;
-const cokieName = process.env.JWT_COOKIE_NAME;
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -27,14 +25,11 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.get('/', isAdmin, (req, res) => {
-  const userToken = req.cookies[cokieName];
-  const decodedToken = jwt.verify(userToken, secret);
-  const user = decodedToken;
-
+  const user = getUserFromToken(req);    
   res.render('realtimeproducts', { user });
 });
 
-router.post('/', upload.single('thumbnail'), async (req, res) => {
+router.post('/', upload.single('thumbnails'), async (req, res) => {
   const { title, category, size, code, description, price, stock } = req.body;
   if (!title) {
     return res.status(400).send('complete title please');
@@ -49,7 +44,7 @@ router.post('/', upload.single('thumbnail'), async (req, res) => {
     description,
     price: parseInt(price),
     stock,
-    thumbnail: `/img/${req.file.filename}`,
+    thumbnails: `/img/${req.file.filename}`,
   });
 
   try {

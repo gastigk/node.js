@@ -28,7 +28,7 @@
                 <td>{{ item.producto.title }}</td>
                 <td>${{ item.producto.price }}.-</td>
                 <td class="ImgTable">
-                    <img src="{{ item.producto.thumbnail }}" alt="{{ item.producto.title }}">
+                    <img src="{{ item.producto.thumbnails }}" alt="{{ item.producto.title }}">
                 </td>
                 <td>
                     <form method="POST" action="/carts/{{ ../cartId }}/{{item._id}}?_method=PUT"

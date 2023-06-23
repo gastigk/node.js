@@ -1,10 +1,6 @@
 /*=========================================================================================
     File Name: form-file-uploader.js
     Description: dropzone
-    --------------------------------------------------------------------------------------
-    Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
-    Author: PIXINVENT
-    Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
 Dropzone.autoDiscover = false;

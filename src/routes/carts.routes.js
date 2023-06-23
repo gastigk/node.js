@@ -2,9 +2,8 @@ import { Router } from 'express';
 import Product from '../dao/models/products.model.js';
 import Cart from '../dao/models/carts.model.js';
 import Handlebars from 'handlebars';
-import Swal from 'sweetalert2';
 import mongoose from 'mongoose';
-import jwt from 'jsonwebtoken';
+import { getUserFromToken } from '../middlewares/user.middleware.js';
 
 const router = Router();
 
@@ -12,8 +11,10 @@ const router = Router();
 import dotenv from 'dotenv';
 dotenv.config();
 
-const secret = process.env.PRIVATE_KEY;
 const cokieName = process.env.JWT_COOKIE_NAME;
+
+let user = null;
+let userEmail = null;
 
 Handlebars.registerHelper('reduce', function (array, prop) {
   return array.reduce((acc, item) => acc + item[prop], 0);
@@ -45,18 +46,15 @@ async function getOrCreateCart(userEmail = null) {
 
 // Show the cart
 router.get('/', async (req, res) => {
+  user = getUserFromToken(req);
   try {
     const { sortOption } = req.query;
     const userToken = req.cookies[cokieName];
-    let user = null;
-    let userEmail = null;
 
     if (userToken) {
-      const decodedToken = jwt.verify(userToken, secret);
-      user = decodedToken;
       userEmail = user.email || user.user.email;
     } else {
-      return res.render('login');
+      return res.render('/login');
     }
 
     let cart;
@@ -67,8 +65,7 @@ router.get('/', async (req, res) => {
     }
 
     if (!cart || cart.items.length === 0 || (!userEmail && cart.user.email)) {
-      req.flash('info', 'Cart empty');
-      return res.redirect('/');
+      return res.render('error/cart-not-found', { user });
     }
     const cartId = cart._id.toString();
 
@@ -119,12 +116,9 @@ router.get('/', async (req, res) => {
 // emptying shopping cart
 router.post('/:cartId/void', async (req, res) => {
   const userToken = req.cookies[cokieName];
-  let user = null;
-  let userEmail = null;
 
   if (userToken) {
-    const decodedToken = jwt.verify(userToken, secret);
-    user = decodedToken;
+    user = getUserFromToken(req);
     userEmail = user.email || user.user.email;
   }
   try {
@@ -151,12 +145,9 @@ router.post('/:cartId/void', async (req, res) => {
 // deleted cart from DBA
 router.post('/:cartId/delete', async (req, res) => {
   const userToken = req.cookies[cokieName];
-  let user = null;
-  let userEmail = null;
 
   if (userToken) {
-    const decodedToken = jwt.verify(userToken, secret);
-    user = decodedToken;
+    user = getUserFromToken(req);
     userEmail = user.email || user.user.email;
   }
 
@@ -182,12 +173,9 @@ router.post('/:cartId/delete', async (req, res) => {
 // quantity update the product in cart
 router.put('/:cartId/:itemId', async (req, res) => {
   const userToken = req.cookies[cokieName];
-  let user = null;
-  let userEmail = null;
 
   if (userToken) {
-    const decodedToken = jwt.verify(userToken, secret);
-    user = decodedToken;
+    user = getUserFromToken(req);
     userEmail = user.email || user.user.email;
   }
 
@@ -208,7 +196,6 @@ router.put('/:cartId/:itemId', async (req, res) => {
     );
 
     if (!cart) {
-      req.flash('error', 'cart not found');
       return res.redirect('error/cart-not-found');
     }
 
@@ -223,12 +210,9 @@ router.put('/:cartId/:itemId', async (req, res) => {
 router.post('/:pid', async (req, res) => {
   try {
     const userToken = req.cookies[cokieName];
-    let user = null;
-    let userEmail = null;
 
     if (userToken) {
-      const decodedToken = jwt.verify(userToken, secret);
-      user = decodedToken;
+      user = getUserFromToken(req);
       userEmail = user.email || user.user.email;
     }
     const { cantidad } = req.body;
@@ -242,31 +226,10 @@ router.post('/:pid', async (req, res) => {
     }
 
     let cart = await getOrCreateCart(userEmail);
-
-    // if product in cart
-    const itemExists = cart.items.some(
-      (item) => item.producto.toString() === productId
-    );
-    if (itemExists) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-        footer: '<a href="">Why do I have this issue?</a>',
-      });
-    } else {
-      cart.items.push({ producto: producto, cantidad: cantidad });
-
-      cart.user.email = userEmail;
-      await cart.save();
-      Swal.fire({
-        icon: 'success',
-        title: 'Great!',
-        text: 'product add to cart',
-      });
-      const referer = req.header('Referer');
-      res.redirect(referer || '/');
-    }
+    cart.items.push({ producto: producto, cantidad: cantidad });
+    cart.user.email = userEmail;
+    await cart.save();
+    res.redirect('/');
   } catch (err) {
     res.status(500).render('error/error-page');
   }

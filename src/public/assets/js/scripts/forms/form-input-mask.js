@@ -1,10 +1,6 @@
 /*=========================================================================================
         File Name: form-input-mask.js
         Description: Input Masks
-        ----------------------------------------------------------------------------------------
-        Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
-        Author: Pixinvent
-        Author URL: hhttp://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
 $(function () {

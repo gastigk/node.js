@@ -3,6 +3,12 @@ import Product from '../dao/models/products.model.js';
 import isAdmin from '../middlewares/isAdmin.js';
 import multer from 'multer';
 import path from 'path';
+import { getUserFromToken } from '../middlewares/user.middleware.js';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const router = Router();
 
@@ -19,23 +25,21 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.get('/:pid', isAdmin, async (req, res) => {
-  const userToken = req.cookies[cokieName];
-  const decodedToken = jwt.verify(userToken, secret);
-  const user = decodedToken;
+  const user = getUserFromToken(req);
   try {
     const productId = req.params.pid;
     const producto = await Product.findById(productId).lean();
     if (producto) {
       res.status(200).render('productseditbyid', { producto, user });
     } else {
-      res.status(404).send('Producto no encontrado');
+      res.status(404).render('error/product-not-found');
     }
   } catch (error) {
-    res.status(500).send('Error al obtener el producto');
+    res.status(500).render('error/under-maintenance');
   }
 });
 
-router.post('/:id', upload.single('thumbnail'), async (req, res) => {
+router.post('/:id', upload.single('thumbnails'), async (req, res) => {
   try {
     const productId = req.params.id;
     const { title, category, description, price, status, code, stock } =
@@ -48,12 +52,12 @@ router.post('/:id', upload.single('thumbnail'), async (req, res) => {
       status: status,
       code: code,
       stock: stock,
-      ...(req.file ? { thumbnail: `/img/${req.file.filename}` } : {}),
+      ...(req.file ? { thumbnails: `/img/${req.file.filename}` } : {}),
     });
 
     res.redirect(`/productseditbyid/${productId}`);
   } catch (error) {
-    res.status(500).send('Error al editar el producto');
+    res.status(500).render('error/under-maintenance');
   }
 });
 

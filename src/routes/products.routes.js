@@ -2,16 +2,12 @@ import multer from 'multer';
 import path from 'path';
 import Product from '../dao/models/products.model.js';
 import { Router } from 'express';
-import jwt from 'jsonwebtoken';
+import { getUserFromToken } from '../middlewares/user.middleware.js';
 
 const router = Router();
 
-// read environment variables
-import dotenv from 'dotenv';
-dotenv.config();
-
-const secret = process.env.PRIVATE_KEY;
 const cookieName = process.env.JWT_COOKIE_NAME;
+let user = null;
 
 router.get('/', async (req, res, next) => {
   try {
@@ -19,8 +15,7 @@ router.get('/', async (req, res, next) => {
 
     let user = null;
     if (userToken) {
-      const decodedToken = jwt.verify(userToken, secret);
-      user = decodedToken;
+      user = getUserFromToken(req) ;
     }
 
     const page = parseInt(req.query.page) || 1;
@@ -69,7 +64,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-router.post('/', upload.single('thumbnail'), async (req, res) => {
+router.post('/', upload.single('thumbnails'), async (req, res) => {
   const { title, category, description, price, code, stock } = req.body;
   if (!title) {
     return res.status(400).send('complete the title please');
@@ -83,7 +78,7 @@ router.post('/', upload.single('thumbnail'), async (req, res) => {
     status: true,
     code,
     stock,
-    thumbnail: `/img/${req.file.filename}`,
+    thumbnails: `/img/${req.file.filename}`,
   });
 
   try {
@@ -118,10 +113,8 @@ router.get('/filter/:category', async (req, res, next) => {
   try {
     const userToken = req.cookies[cookieName];
 
-    let user = null;
     if (userToken) {
-      const decodedToken = jwt.verify(userToken, secret);
-      user = decodedToken;
+      user = getUserFromToken(req) ;
     }
 
     const page = parseInt(req.query.page) || 1;

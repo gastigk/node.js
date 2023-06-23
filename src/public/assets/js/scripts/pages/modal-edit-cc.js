@@ -1,7 +1,7 @@
 $(function () {
   ('use strict');
 
-  var assetsPath = '../../../app-assets/',
+  var assetsPath = '../../../assets/',
     creditCard = $('.credit-card-mask'),
     editCardValidation = $('#editCardValidation'),
     expiryDateMask = $('.expiry-date-mask'),

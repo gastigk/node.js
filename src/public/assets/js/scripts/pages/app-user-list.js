@@ -1,11 +1,6 @@
 /*=========================================================================================
     File Name: app-user-list.js
     Description: User List page
-    --------------------------------------------------------------------------------------
-    Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
-    Author: PIXINVENT
-    Author URL: http://www.themeforest.net/user/pixinvent
-
 ==========================================================================================*/
 $(function () {
   ('use strict');
@@ -21,7 +16,7 @@ $(function () {
       3: { title: 'Inactive', class: 'badge-light-secondary' }
     };
 
-  var assetPath = '../../../app-assets/',
+  var assetPath = '../../../assets/',
     userView = 'app-user-view-account.html';
 
   if ($('body').attr('data-framework') === 'laravel') {

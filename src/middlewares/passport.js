@@ -69,10 +69,10 @@ passport.use(
         const existingUserPhone = await User.findOne({ phone: req.body.phone });
 
         if (existingUser) {
-          return done(null, false, { message: 'Email already exists.' });
+          return done(null, false, { message: 'e-mail already exists.' });
         }
         if (existingUserPhone) {
-          return done(null, false, { message: 'Phone already exists.' });
+          return done(null, false, { message: 'phone already exists.' });
         }
 
         const hash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));

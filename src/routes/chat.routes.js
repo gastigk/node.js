@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
     const messages = await Chat.find();
     res.render('chat', { messages });
   } catch (err) {
-    res.status(500).render('error/under-maintenance');
+    res.status(500).render('error/under-maintenance'); // dont recive the message
   }
 });
 

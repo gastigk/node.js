@@ -13,7 +13,7 @@ productForm.addEventListener('submit', (evt) => {
     status: productForm.status.value,
     stock: productForm.stock.value,
     code: productForm.code.value,
-    thumbnail: '/img/' + productForm.thumbnail.value.replace(/^.*\\/, ''),
+    thumbnails: '/img/' + productForm.thumbnails.value.replace(/^.*\\/, ''),
   };
 
   socket.emit('product-list', { product: newProduct });
@@ -24,7 +24,7 @@ productForm.addEventListener('submit', (evt) => {
   socket.on('product', (newProduct) => {});
 
   let productCards = `<div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="${newProduct.thumbnail}" alt="Card image cap">
+        <img class="card-img-top" src="${newProduct.thumbnails}" alt="Card image cap">
         <div class="card-body">
             <h4 class="card-title">${newProduct.title}</h4>
             <p class="card-text">${newProduct.description} </p>

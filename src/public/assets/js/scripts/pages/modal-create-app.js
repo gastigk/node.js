@@ -2,7 +2,7 @@ $(function () {
   ('use strict');
   var modernVerticalWizard = document.querySelector('.create-app-wizard'),
     createAppModal = document.getElementById('createAppModal'),
-    assetsPath = '../../../app-assets/',
+    assetsPath = '../../../assets/',
     creditCard = $('.create-app-card-mask'),
     expiryDateMask = $('.create-app-expiry-date-mask'),
     cvvMask = $('.create-app-cvv-code-mask');

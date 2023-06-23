@@ -1,15 +1,10 @@
 import Handlebars from 'handlebars';
 import { Router } from 'express';
 import Product from '../dao/models/products.model.js';
-import jwt from 'jsonwebtoken';
+import { getUserFromToken } from '../middlewares/user.middleware.js';
 
 const router = Router();
 
-// read environment variables
-import dotenv from 'dotenv';
-dotenv.config();
-
-const secret = process.env.PRIVATE_KEY;
 const cookieName = process.env.JWT_COOKIE_NAME;
 
 // render product list
@@ -30,7 +25,7 @@ router.get('/', async (req, res) => {
       return;
     }
 
-    const user = jwt.verify(userToken, secret);
+    const user = getUserFromToken(req) ;  
 
     if (!user) {
       res

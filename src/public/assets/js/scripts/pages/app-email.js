@@ -1,10 +1,6 @@
 /*=========================================================================================
     File Name: app-email.js
     Description: Email Page js
-    ----------------------------------------------------------------------------------------
-    Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
-    Author: PIXINVENT
-    Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
 'use strict';
@@ -47,7 +43,7 @@ $(function () {
     composeMaximize = $('.compose-maximize'),
     isRtl = $('html').attr('data-textdirection') === 'rtl';
 
-  var assetPath = '../../../app-assets/';
+  var assetPath = '../../../assets/';
 
   if ($('body').attr('data-framework') === 'laravel') {
     assetPath = $('body').attr('data-asset-path');
