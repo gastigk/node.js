@@ -26,7 +26,7 @@ router.post('/', (req, res, next) => {
         return res.status(500).render('error/under-maintenance');
       }
 
-      res.redirect('/login');
+      res.redirect('login');
     });
   })(req, res, next);
 });

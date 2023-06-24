@@ -18,7 +18,7 @@ router.get('/', passport.authenticate('github', { scope: ['user:email'] }));
 
 router.get(
   '/githubcallback',
-  passport.authenticate('github', { failureRedirect: '/login' }),
+  passport.authenticate('github', { failureRedirect: 'login' }),
   async (req, res) => {
     try {
       const token = jwt.sign({ user: req.user }, secret);
@@ -31,7 +31,7 @@ router.get(
 
       res.redirect('/');
     } catch (err) {
-      res.redirect('/login');
+      res.redirect('login');
     }
   }
 );

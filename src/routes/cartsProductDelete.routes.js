@@ -7,7 +7,6 @@ const router = Router();
 
 router.get('/:cartId/:itemId', async (req, res) => {
   const user = getUserFromToken(req);
-  const userToken = req.cookies[cookieName];
   const { cartId, itemId } = req.params;
   if (!mongoose.Types.ObjectId.isValid(cartId)) {
     return res.status(400).render('error/cart-not-found');
@@ -26,7 +25,7 @@ router.get('/:cartId/:itemId', async (req, res) => {
 
     cart.items.splice(itemIndex, 1);
     await cart.save();
-    return res.render('cartsDeleteById', { cartId, itemId, user });
+    return res.render('cart-product-delete', { cartId, itemId, user });
   } catch (error) {
     return res.status(404).render('error/cart-not-found');
   }

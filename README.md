@@ -10,28 +10,6 @@
     <img src="https://jobs.coderhouse.com/assets/logos_coderhouse.png" alt="CoderHouse"  height="100"/>
 </p>
 
----
-
-### Environment variables
-
-<h3 align="left"> 
-LOCAL_URL="mongodb://localhost:27017/e-commerce"
-LOCAL_DBA="e-commerce"
-MONGO_URL="mongodb+srv://ancestral:ancestral@clusterancestral.nkbaykl.mongodb.net/e-commerce"
-MONGO_DBA="e-commerce"
-SECRET="Ancestral"
-GITHUB_CLIENT_ID="Iv1.a601a61250d032f6"
-GITHUB_CLIENT_SECRET="6398ed34788c432ecfbb634de93aacb515816c8d"
-GITHUB_CALLBACK_URL="http://localhost:8080/github/githubcallback"
-GITHUB_APP_ID="338242"
-PROD_PORT="8080"
-DEV_PORT="3030"
-PRIVATE_KEY="Anc3stral"
-JWT_COOKIE_NAME="CookieToken"
-</h3>
-
----
-
 ### Autor: Gastón Guevara
 
 ![GitHub followers](https://img.shields.io/github/followers/gastigk?label=Follow%20me%20on%20GitHub&style=for-the-badge)
