@@ -2,14 +2,12 @@ import passport from 'passport';
 import { Router } from 'express';
 import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
+import config from '../config/config.js';
 
 const router = Router();
 
-import dotenv from 'dotenv';
-dotenv.config();
-
-const secret = process.env.PRIVATE_KEY;
-const cookieName = process.env.JWT_COOKIE_NAME;
+const secret = config.jwt.key;
+const cookieName = config.jwt.cookiename;
 
 // Middleware cookie-parser
 router.use(cookieParser());

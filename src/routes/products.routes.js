@@ -3,10 +3,11 @@ import path from 'path';
 import Product from '../dao/models/products.model.js';
 import { Router } from 'express';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
+import config from '../config/config.js'
 
 const router = Router();
 
-const cookieName = process.env.JWT_COOKIE_NAME;
+const cookieName = config.jwt.cookiename;
 let user = null;
 
 router.get('/', async (req, res, next) => {

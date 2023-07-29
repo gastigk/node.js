@@ -1,10 +1,9 @@
 // verfication if user is admin
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-dotenv.config();
+import config from '../config/config.js'
 
-const secret = process.env.PRIVATE_KEY;
-const cookieName = process.env.JWT_COOKIE_NAME;
+const secret = config.jwt.key;
+const cookieName = config.jwt.cookiename;
 
 const isAdmin = (req, res, next) => {
   const userToken = req.cookies[cookieName];

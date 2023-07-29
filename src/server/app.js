@@ -14,19 +14,21 @@ import dotenv from 'dotenv';
 import flash from 'express-flash';
 import cors from 'cors';
 
+import config from '../config/config.js';
+
 // import middlewares
-import initializePassportGH from '../middlewares/passportGithub.js';
-import initializePassport from '../middlewares/passport.js';
+import initializePassportGH from '../config/passport.github.config.js';
+import initializePassport from '../config/passport.config.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
 
 // import models
 import Messages from '../dao/models/messages.model.js';
 
 // sever up
-const port = 8080;
+export const PORT = config.app.port;
 const app = express();
-const httpServer = app.listen(port, () => {
-  console.log(`Listening http://localhost:${port}`);
+const httpServer = app.listen(PORT, () => {
+  console.log(`Listening http://localhost:${PORT}`);
 });
 
 // definning __dirname
@@ -64,40 +66,39 @@ program.parse();
 dotenv.config();
 
 // environment variables
-const prodPort = process.env.PROD_PORT;
-const devPort = process.env.DEV_PORT;
-
-const prodMongo = process.env.MONGO_URL;
-const prodBD = process.env.MONGO_DBA;
-const localBD = process.env.LOCAL_URL;
-const localBDName = process.env.LOCAL_DBA;
+const prodMongo = config.mongo.url;
+const prodBD = config.mongo.dbname;
+const localBD = config.dblocal.url;
+const localBDName = config.dblocal.dbname;
 
 // verification option --database
 if (program.opts().database === 'atlas') {
-  process.env.MONGO_URL = prodMongo;
-  process.env.MONGO_DBA = prodBD;
+  config.mongo.url = prodMongo;
+  config.mongo.dbname = prodBD;
 } else {
-  process.env.MONGO_URL = localBD;
-  process.env.MONGO_DBA = localBDName;
+  config.mongo.url = localBD;
+  config.mongo.dbname = localBDName;
 }
 
 // configuration of mongoose
-const mongoConnection = process.env.MONGO_URL;
-const mongoDatabase = process.env.MONGO_DBA;
+const mongoConnection = config.mongo.url;
+const mongoDatabase = config.mongo.dbname;
 
 async function connectToDatabase() {
   try {
-      await mongoose.connect(mongoConnection);
-      console.log(`Successful connection to the database "${mongoDatabase}"`);
+    await mongoose.connect(mongoConnection);
+    console.log(`Successful connection to the database "${mongoDatabase}"`);
   } catch (error) {
-      console.log(`Cannot connect to database ${mongoDatabase}. Error type: ${error}`);
-      process.exit();
+    console.log(
+      `Cannot connect to database ${mongoDatabase}. Error type: ${error}`
+    );
+    process.exit();
   }
 }
 connectToDatabase();
 
 // configuration middleware express-session con MongoStore
-const secret = process.env.SECRET;
+const secret = config.mongo.secret;
 app.use(
   session({
     secret: secret,
@@ -185,13 +186,14 @@ app.use('/signupadmin', signupAdminRouter);
 app.use('/github', loginGithubRouter);
 app.use('/admin-panel', adminPanel);
 app.get('*', (req, res) => {
-  const user = getUserFromToken(req);    
-  (!user) ? res.status(404).render('error/error-page'):
-  res.status(404).render('error/error-page', { user });  
+  const user = getUserFromToken(req);
+  !user
+    ? res.status(404).render('error/error-page')
+    : res.status(404).render('error/error-page', { user });
 });
 
 // configuration of cors
-app.use(cors())
+app.use(cors());
 
 // configuration of websocket
 const socketServer = new Server(httpServer);

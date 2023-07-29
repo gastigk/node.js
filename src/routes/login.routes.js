@@ -2,16 +2,13 @@ import { Router } from 'express';
 import User from '../dao/models/user.model.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { generateToken } from '../middlewares/passport.js';
+import { generateToken } from '../config/passport.config.js';
+import config from '../config/config.js';
 
 const router = Router();
 
-// read environment variables
-import dotenv from 'dotenv';
-dotenv.config();
-
-const secret = process.env.PRIVATE_KEY;
-const cokieName = process.env.JWT_COOKIE_NAME;
+const secret = config.jwt.key;
+const cookieName = config.jwt.cookiename;
 
 router.get('/', (req, res) => {
   res.render('login');
@@ -24,8 +21,7 @@ router.post('/', async (req, res) => {
     const user = await User.findOne({ email: email }).exec();
 
     if (!user) {
-      return res
-        .status(400).render('error/user-pass-wrong');
+      return res.status(400).render('error/user-pass-wrong');
     }
 
     bcrypt.compare(password, user.password).then((result) => {
@@ -38,8 +34,7 @@ router.post('/', async (req, res) => {
 
         res.cookie(cokieName, userToken).redirect('/');
       } else {
-        return res
-          .status(400).render('error/user-pass-wrong');
+        return res.status(400).render('error/user-pass-wrong');
       }
     });
   } catch (err) {

@@ -1,12 +1,8 @@
 import { Router } from 'express';
+import config from '../config/config.js'
 
 const router = Router();
-
-// read environment variables
-import dotenv from 'dotenv';
-dotenv.config();
-
-const cokieName = process.env.JWT_COOKIE_NAME;
+const cookieName = config.jwt.cookiename;
 
 router.get('/', async (req, res) => {
   res.clearCookie(cokieName);

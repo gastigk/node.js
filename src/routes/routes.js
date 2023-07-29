@@ -1,9 +1,8 @@
 import { Router } from 'express';
 import jwt from 'jsonwebtoken';
+import config from '../config/config.js';
 
-import dotenv from 'dotenv';
-dotenv.config();
-const secret = process.env.PRIVATE_KEY;
+const secret = config.jwt.key;
 
 export default class MyRouter {
   constructor() {

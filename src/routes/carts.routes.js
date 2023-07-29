@@ -4,14 +4,11 @@ import Cart from '../dao/models/carts.model.js';
 import Handlebars from 'handlebars';
 import mongoose from 'mongoose';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
+import config from '../config/config.js'
 
 const router = Router();
 
-// read environment variables
-import dotenv from 'dotenv';
-dotenv.config();
-
-const cokieName = process.env.JWT_COOKIE_NAME;
+const cookieName = config.jwt.cookiename;
 
 let user = null;
 let userEmail = null;

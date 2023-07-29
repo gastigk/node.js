@@ -2,10 +2,11 @@ import Handlebars from 'handlebars';
 import { Router } from 'express';
 import Product from '../dao/models/products.model.js';
 import { getUserFromToken } from '../middlewares/user.middleware.js';
+import config from '../config/config.js'
 
 const router = Router();
 
-const cookieName = process.env.JWT_COOKIE_NAME;
+const cookieName = config.jwt.cookiename;
 
 // render product list
 router.get('/', async (req, res) => {

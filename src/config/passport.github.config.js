@@ -2,17 +2,14 @@ import passport from 'passport';
 import GitHubStrategy from 'passport-github2';
 import Users from '../dao/models/user.model.js';
 import jwt from 'jsonwebtoken';
-
-// read environment variables
-import dotenv from 'dotenv';
-dotenv.config();
+import config from '../config/config.js'
 
 // environment variables
-const clientID = process.env.GITHUB_CLIENT_ID;
-const clientSecret = process.env.GITHUB_CLIENT_SECRET;
-const callbackURL = process.env.GITHUB_CALLBACK_URL;
-const secret = process.env.PRIVATE_KEY;
-const cookieName = process.env.JWT_COOKIE_NAME;
+const clientID = config.github.clientid;
+const clientSecret = config.github.clientsecret;
+const callbackURL = config.github.callbackurl;
+const secret = config.jwt.key;
+const cookieName = config.jwt.cookiename;
 
 // configuration GitHub strategy with Passport
 const initializePassportGH = () => {

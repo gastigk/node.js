@@ -4,11 +4,9 @@ import bcrypt from 'bcrypt';
 import User from '../dao/models/user.model.js';
 import jwt from 'jsonwebtoken';
 
-// read environment variables
-import dotenv from 'dotenv';
-dotenv.config();
+import config from '../config/config.js'
 
-const secret = process.env.PRIVATE_KEY;
+const secret = config.jwt.secret;
 
 export const generateToken = (user) => {
   const payload = {
